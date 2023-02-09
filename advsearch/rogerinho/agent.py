@@ -25,6 +25,18 @@ def max_player(state: Gamestate, alpha, beta) -> Tuple[int, int, int]:
     return alpha, action
 
 def min_player(state: Gamestate, alpha, beta) -> Tuple[int, int, int]:
+    if try_cut(state):
+        return evaluate(state)
+    current = sys.maxsize
+    action = None
+    for sbar, abar in successors(state):
+        max_tuple = max_player(sbar, alpha, beta)
+        current = min(current, max_tuple[0])
+        action = abar
+        beta = min(beta, current)
+        if(alpha >= beta):
+            break
+    return beta, action
 
 def make_move(state: GameState) -> Tuple[int, int]:
     """
