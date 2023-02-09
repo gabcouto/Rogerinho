@@ -4,19 +4,19 @@ from typing import Tuple
 
 from ..othello.gamestate import GameState
 
-def try_cut(state: Gamestate):
+global_depth = 6    
 
 def evaluate(state: Gamestate):
 
 def successors(state: Gamestate):
 
-def max_player(state: Gamestate, alpha, beta) -> Tuple[int, int, int]:
-    if try_cut(state):
+def max_player(state: Gamestate, alpha, beta, depth) -> Tuple[int, int, int]:
+    if depth == global_depth:
         return evaluate(state)
     current = -sys.maxsize
     action = None
     for sbar, abar in successors(state):
-        min_tuple = min_player(sbar, alpha, beta)
+        min_tuple = min_player(sbar, alpha, beta, depth)
         current = max(current, min_tuple[0])
         action = abar
         alpha = max(alpha, current)
@@ -24,13 +24,13 @@ def max_player(state: Gamestate, alpha, beta) -> Tuple[int, int, int]:
             break
     return alpha, action
 
-def min_player(state: Gamestate, alpha, beta) -> Tuple[int, int, int]:
-    if try_cut(state):
+def min_player(state: Gamestate, alpha, beta, depth) -> Tuple[int, int, int]:
+    if depth == global_depth:
         return evaluate(state)
     current = sys.maxsize
     action = None
     for sbar, abar in successors(state):
-        max_tuple = max_player(sbar, alpha, beta)
+        max_tuple = max_player(sbar, alpha, beta, depth)
         current = min(current, max_tuple[0])
         action = abar
         beta = min(beta, current)
@@ -44,8 +44,7 @@ def make_move(state: GameState) -> Tuple[int, int]:
     :param state: state to make the move
     :return: (int, int) tuple with x, y coordinates of the move (remember: 0 is the first row/column)
     """
+    resultado = max_player(GameState, -sys.maxsize, sys.maxsize)
 
-
-
-    return random.choice([(2, 3), (4, 5), (5, 4), (3, 2)])
+    return resultado[1-2]
 
