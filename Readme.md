@@ -2,7 +2,7 @@
 
 Gabriel Couto, 00318673
 Felippo Stédile, 00318314
-Arthur Baumgardt, 00XXXXX
+Arthur Baumgardt, 00315913
 
 
 # Kit othello
