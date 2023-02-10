@@ -19,44 +19,34 @@ def evaluate(state: GameState):
                     valor += 3
                 elif i == 0 or i == 7 or j == 0 or j == 7:
                     valor += 1
-                if i == 1 and j == 1:
+                elif (i == 6 or i == 1) and (j == 1 or j ==6):
                     valor += 2
-                elif i == 1 and j == 6:
-                    valor += 2
-                elif i == 6 and j == 1:
-                    valor += 2
-                elif i == 6 and j == 6:
-                    valor += 2
+
             elif state[i][j] == 'W':
                 valor -= 1
                 if (i == 0 or i == 7) and (j == 0 or j == 7):
                     valor -= 3
                 elif i == 0 or i == 7 or j == 0 or j == 7:
                     valor -= 1
-                if i == 1 and j == 1:
-                    score -= 2
-                elif i == 1 and j == 6:
-                    score -= 2
-                elif i == 6 and j == 1:
-                    score -= 2
-                elif i == 6 and j == 6:
-                    score -= 2
+                if (i == 1 or i ==6) and (j == 1 or j ==6 ):
+                    valor -= 2
+
     ############################################## Não sei como implementar isso na real
     # Delta quantidade de opções de jogadas
-    black_moves = 0
-    white_moves = 0
-    for i in range(8):
-        for j in range(8):
-            if state[i][j] == '.' # se n tem peças
-                if is_legal_move(state, i, j): #como verifica se é legal para o preto e n pro branco?
-                    black_moves += 1
-                if is_legal_move(state, i, j):
-                    white_moves += 1
+    #black_moves = 0
+    #white_moves = 0
+    #for i in range(8):
+     #   for j in range(8):
+      #      if state[i][j] == '.':
+       #         if is_legal_move(state, i, j): #como verifica se é legal para o preto e n pro branco?
+        #            black_moves += 1
+         #       if is_legal_move(state, i, j):
+          #          white_moves += 1
 
-    valor += (black_moves - white_moves) * 2
+    #valor += (black_moves - white_moves) * 2
     ############################################
     
-    # if (somos pretas)
+    # if (somos pretas):
     return valor
     #else
     #return -(valor)
