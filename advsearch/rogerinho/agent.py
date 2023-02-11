@@ -2,9 +2,9 @@ import random
 import sys
 from typing import Tuple
 
-from ..othello.gamestate import GameState
+from advsearch.othello.gamestate import GameState
 
-DEPTH = 6
+DEPTH = 7
 
 def evaluate(state: GameState):
     valor = 0
@@ -45,42 +45,39 @@ def evaluate(state: GameState):
 
 def max_player(state: GameState, alpha, beta, depth) -> Tuple[int, int, int]:
     depth+=1
-    if (depth == DEPTH or state.is_terminal):
+    if (depth == DEPTH or state.is_terminal()):
         return (evaluate(state), (-1, -1))
 
     v = -(sys.maxsize)
-    act = None
-    for action in state.legal_moves:
+    act = (-1, -1)
+    for action in state.legal_moves():
 
-        val_act = min_player(state.next_state(action), alpha, beta)
+        val_act = min_player(state.next_state(action), alpha, beta, depth)
         v = max(v, val_act[0])
-        if v > alpha :
-            act = action
-            alpha = v
-    
+        act = action
+        alpha = max(alpha, v)
         if (beta<=alpha): break
 
-    return (alpha, action)
+    return (alpha, act)
 
 
 def min_player(state: GameState, alpha, beta, depth) -> Tuple[int, int, int]:
     depth+=1
-    if (depth == DEPTH or state.is_terminal):
+    if (depth == DEPTH or state.is_terminal()):
         return (evaluate(state), (-1, -1))
 
     v = sys.maxsize
-    act = None
-    for action in state.legal_moves:
+    act = (-1, -1)
+    for action in state.legal_moves():
 
-        val_act = max_player(state.next_state(action), alpha, beta)
+        val_act = max_player(state.next_state(action), alpha, beta, depth)
         v = min(v, val_act[0])
-        if v < beta :
-            act = action
-            beta = v
+        act =  action
+        beta = min(beta, v)
     
         if (beta<=alpha): break
 
-    return (beta, action)
+    return (beta, act)
 
 
 def make_move(state: GameState) -> Tuple[int, int]:
@@ -89,5 +86,5 @@ def make_move(state: GameState) -> Tuple[int, int]:
     :param state: state to make the move
     :return: (int, int) tuple with x, y coordinates of the move (remember: 0 is the first row/column)
     """
-    value, move = max_player(state, sys.maxsize, -sys.maxsize, DEPTH)
+    value, move = max_player(state, sys.maxsize, -sys.maxsize, 0)
     return move
