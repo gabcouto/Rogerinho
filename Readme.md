@@ -1,9 +1,25 @@
 # Poda alfa-beta em Othello/Reversi
 
-Gabriel Couto, 00318673
-Felippo Stédile, 00318314
-Arthur Baumgardt, 00315913
+Gabriel Couto, 00318673 turma A
+Felippo Stédile, 00318314 turma A
+Arthur Baumgardt, 00315913 turma B
 
+# Decisões de projeto
+Escolhemos o algoritmo minimax com poda alpha-beta, pois julgamos que MCTS faria mais sentido apenas em jogos com indeterminismo e "roladas de dado", considerando que o Othello só depende de decisões objetivas dos jogadores escolhemos, então, o minimax
+
+Quanto às heurísticas, utilizamos heurísticas básicas como diferença entre a quantidade de peças brancas e pretas, cores das peças nas "paredes" do tabuleiro, cores das peças nos cantos do tabuleiro (com diferentes valores para as coordenadas equivalente às 0,0 e 1,1) e por fim, quantidade de jogadas disponíveis para cada jogador
+
+Elas são sempre calculadas na perspectiva do jogador com as peças pretas, porém, caso o rogeirinho seja o jogador com as peças brancas, o valor da heurística é invertido antes do retorno da função
+
+# Estratégia de parado
+Foi utilizada profunidade definida em uma variável global, e a checagem de nodo terminal como estratégias de parada
+
+# Dificuldades
+Nossa heurística não demonstra problemas, porém, a taxa de vitórias contra o jogador aleatório não é muito boa
+
+# Bibliografia
+https://docs.google.com/presentation/d/1IPYPito7htL61OKHEWZw402oZQBCjEx9_H3KTEgUna4/edit#slide=id.gb8d16d1f23_0_57
+http://en.wikipedia.org/wiki/Reversi
 
 # Kit othello
 Kit para executar partidas de Othello e implementar o algoritmo de poda alfa-beta.
@@ -16,16 +32,17 @@ kit_othello
 |-- advsearch
 |   |-- othello
 |   |   \-- board.py
+|   |   \-- gamestate.py
 |   |-- randomplayer
-|   |   \-- agent.py       <-- agente que joga aleatoriamente
+|   |   \-- agent.py
 |   |-- humanplayer        
-|   |   \-- agent.py       <-- agente para um humano jogar 
-|   |-- timer.py           <-- funcoes auxiliares de temporizacao
-|   \-- your_agent         <-- renomeie este diretorio c/ o nome do seu agente (pode adicionar outros arquivos aqui se precisar)
-|       |-- agent.py       <-- preencha o make_move aqui 
+|   |   \-- agent.py
+|   |-- timer.py           
+|   \-- rogerinho         
+|       |-- agent.py        
 |-- server.py
 |-- server_tui.py
-\-- test_agent.py          <-- teste o funcionamento basico do seu agente (pode adicionar outros casos de teste)
+\-- test_agent.py          
 ```
 
 
